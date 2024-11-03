@@ -51,6 +51,9 @@ class BillCalculator extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
           ),
         )
       ],
@@ -76,6 +79,9 @@ class BillCalculator extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
           ),
         )
       ],
