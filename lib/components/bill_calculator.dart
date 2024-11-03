@@ -42,11 +42,15 @@ class BillCalculator extends StatelessWidget {
           height: 30,
           child: TextField(
             cursorHeight: 15,
-            cursorColor: Colors.blue,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                border: OutlineInputBorder()),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey))),
           ),
         )
       ],
@@ -63,11 +67,15 @@ class BillCalculator extends StatelessWidget {
           height: 30,
           child: TextField(
             cursorHeight: 15,
-            cursorColor: Colors.blue,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                border: OutlineInputBorder()),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey))),
           ),
         )
       ],

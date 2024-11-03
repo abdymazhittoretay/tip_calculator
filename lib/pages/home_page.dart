@@ -18,10 +18,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: primaryColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Tip Calculator', style: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold
-        ),),
+        title: Text(
+          'Tip Calculator',
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Column(
