@@ -2,8 +2,19 @@
 
 import 'package:flutter/material.dart';
 
-class BillCalculator extends StatelessWidget {
+class BillCalculator extends StatefulWidget {
   const BillCalculator({super.key});
+
+  @override
+  State<BillCalculator> createState() => _BillCalculatorState();
+}
+
+class _BillCalculatorState extends State<BillCalculator> {
+  final TextEditingController _billController = TextEditingController();
+  final TextEditingController _tipController = TextEditingController();
+
+  dynamic billValue = "";
+  dynamic tipValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +49,10 @@ class BillCalculator extends StatelessWidget {
       children: [
         Text('Bill Total:'),
         SizedBox(
-          width: 70,
+          width: 80,
           height: 30,
           child: TextField(
+            controller: _billController,
             cursorHeight: 15,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -51,6 +63,11 @@ class BillCalculator extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
+            onSubmitted: (value) {
+              setState(() {
+                billValue = _billController.text;
+              });
+            },
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
@@ -66,9 +83,10 @@ class BillCalculator extends StatelessWidget {
       children: [
         Text('Tip %:'),
         SizedBox(
-          width: 70,
+          width: 80,
           height: 30,
           child: TextField(
+            controller: _tipController,
             cursorHeight: 15,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -79,6 +97,11 @@ class BillCalculator extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
+            onSubmitted: (value) {
+              setState(() {
+                tipValue = _tipController.text;
+              });
+            },
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
@@ -93,12 +116,10 @@ class BillCalculator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text('Total:'),
-        SizedBox(
-            width: 70,
-            child: Text(
-              "152",
-              textAlign: TextAlign.center,
-            ))
+        Text(
+          "$billValue $tipValue",
+          textAlign: TextAlign.center,
+        )
       ],
     );
   }
