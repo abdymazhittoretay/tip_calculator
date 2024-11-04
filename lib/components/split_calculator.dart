@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class SplitCalculator extends StatelessWidget {
   final double currentSliderValue;
-  final double splittedTip;
-  final double splittedBill;
+  final String splittedTotal;
+  final String splittedBill;
   final void Function(double)? onChanged;
 
   const SplitCalculator(
       {super.key,
       required this.currentSliderValue,
       required this.splittedBill,
-      required this.splittedTip,
+      required this.splittedTotal,
       required this.onChanged});
 
   @override
@@ -50,8 +50,9 @@ class SplitCalculator extends StatelessWidget {
             activeColor: Colors.blue,
             inactiveColor: Colors.grey[30],
             label: currentSliderValue.round().toString(),
+            min: 1,
             max: 10,
-            divisions: 10,
+            divisions: 9,
             value: currentSliderValue,
             onChanged: onChanged,
           ),
@@ -69,7 +70,7 @@ class SplitCalculator extends StatelessWidget {
               SizedBox(
                   width: 80,
                   child: Text(
-                    "\$$splittedTip",
+                    "\$$splittedTotal",
                     textAlign: TextAlign.center,
                   ))
             ],
@@ -81,7 +82,7 @@ class SplitCalculator extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Split Bill:"),
+              Text("Split Total:"),
               SizedBox(
                   width: 80,
                   child: Text(

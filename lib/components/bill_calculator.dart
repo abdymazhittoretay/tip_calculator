@@ -124,7 +124,7 @@ class BillCalculator extends StatelessWidget {
           child: Text(
             double.tryParse(billValue) != null &&
                     double.tryParse(tipValue) != null
-                ? "\$$totalValue"
+                ? "\$${totalValue.toStringAsFixed(2)}"
                 : "\$0.0",
             textAlign: TextAlign.center,
           ),

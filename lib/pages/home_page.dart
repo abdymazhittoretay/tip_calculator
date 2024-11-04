@@ -15,13 +15,13 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _billController = TextEditingController();
   final TextEditingController _tipController = TextEditingController();
 
-  dynamic billValue = "";
-  dynamic tipValue = "";
-  double totalValue = 0.0;
+  dynamic _billValue = "";
+  dynamic _tipValue = "";
+  double _totalValue = 0.0;
 
-  double _currentSliderValue = 0;
-  double splittedTip = 0.0;
-  double splittedBill = 0.0;
+  double _currentSliderValue = 1.0;
+  String _splittedTip = "0.0";
+  String _splittTotal = "0.0";
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +51,9 @@ class _HomePageState extends State<HomePage> {
             BillCalculator(
               billController: _billController,
               tipController: _tipController,
-              billValue: billValue,
-              tipValue: tipValue,
-              totalValue: totalValue,
+              billValue: _billValue,
+              tipValue: _tipValue,
+              totalValue: _totalValue,
               saveBIll: saveBIll,
               saveTip: saveTip,
             ),
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             ),
             SplitCalculator(
               currentSliderValue: _currentSliderValue,
-              splittedBill: splittedBill,
-              splittedTip: splittedTip,
+              splittedBill: _splittTotal,
+              splittedTotal: _splittedTip,
               onChanged: newValue,
             )
           ],
@@ -78,18 +78,18 @@ class _HomePageState extends State<HomePage> {
 
   // Functions:
   void calculateTotal() {
-    totalValue = billValue + (billValue * (tipValue / 100));
-    billValue = _billController.text;
-    tipValue = _tipController.text;
+    _totalValue = _billValue + (_billValue * (_tipValue / 100));
+    _billValue = _billController.text;
+    _tipValue = _tipController.text;
   }
 
   void saveBIll() {
     setState(() {
-      billValue = _billController.text;
-      if (double.tryParse(billValue) != null &&
-          double.tryParse(tipValue) != null) {
-        billValue = double.parse(billValue);
-        tipValue = double.parse(tipValue);
+      _billValue = _billController.text;
+      if (double.tryParse(_billValue) != null &&
+          double.tryParse(_tipValue) != null) {
+        _billValue = double.parse(_billValue);
+        _tipValue = double.parse(_tipValue);
         calculateTotal();
       }
     });
@@ -97,11 +97,11 @@ class _HomePageState extends State<HomePage> {
 
   void saveTip() {
     setState(() {
-      tipValue = _tipController.text;
-      if (double.tryParse(tipValue) != null &&
-          double.tryParse(tipValue) != null) {
-        billValue = double.parse(billValue);
-        tipValue = double.parse(tipValue);
+      _tipValue = _tipController.text;
+      if (double.tryParse(_tipValue) != null &&
+          double.tryParse(_tipValue) != null) {
+        _billValue = double.parse(_billValue);
+        _tipValue = double.parse(_tipValue);
         calculateTotal();
       }
     });
@@ -110,6 +110,18 @@ class _HomePageState extends State<HomePage> {
   void newValue(value) {
     setState(() {
       _currentSliderValue = value;
+      splitTotal();
+      splitTip();
     });
+  }
+
+  void splitTotal() {
+    _splittTotal =
+        (_totalValue / _currentSliderValue).toStringAsFixed(2);
+  }
+
+  void splitTip() {
+    _splittedTip =
+        (double.parse(_tipValue) / _currentSliderValue).toStringAsFixed(2);
   }
 }
