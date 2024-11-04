@@ -4,8 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:tip_calculator/components/bill_calculator.dart';
 import 'package:tip_calculator/components/split_calculator.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController _billController = TextEditingController();
+  final TextEditingController _tipController = TextEditingController();
+
+  dynamic billValue = "";
+  dynamic tipValue = "";
+  double totalValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +43,15 @@ class HomePage extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
           ),
-          BillCalculator(),
+          BillCalculator(
+            billController: _billController,
+            tipController: _tipController,
+            billValue: billValue,
+            tipValue: tipValue,
+            totalValue: totalValue,
+            saveBIll: saveBIll,
+            saveTip: saveTip,
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 32.0),
             child: Text(
@@ -43,5 +63,36 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Functions:
+  void calculateTotal() {
+    totalValue = billValue + (billValue * (tipValue / 100));
+    billValue = _billController.text;
+    tipValue = _tipController.text;
+  }
+
+  void saveBIll() {
+    setState(() {
+      billValue = _billController.text;
+      if (double.tryParse(billValue) != null &&
+          double.tryParse(tipValue) != null) {
+        billValue = double.parse(billValue);
+        tipValue = double.parse(tipValue);
+        calculateTotal();
+      }
+    });
+  }
+
+  void saveTip() {
+    setState(() {
+      tipValue = _tipController.text;
+      if (double.tryParse(tipValue) != null &&
+          double.tryParse(tipValue) != null) {
+        billValue = double.parse(billValue);
+        tipValue = double.parse(tipValue);
+        calculateTotal();
+      }
+    });
   }
 }

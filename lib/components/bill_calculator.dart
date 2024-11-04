@@ -2,20 +2,26 @@
 
 import 'package:flutter/material.dart';
 
-class BillCalculator extends StatefulWidget {
-  const BillCalculator({super.key});
+class BillCalculator extends StatelessWidget {
+  final TextEditingController billController;
+  final TextEditingController tipController;
 
-  @override
-  State<BillCalculator> createState() => _BillCalculatorState();
-}
+  final dynamic billValue;
+  final dynamic tipValue;
+  final double totalValue;
 
-class _BillCalculatorState extends State<BillCalculator> {
-  final TextEditingController _billController = TextEditingController();
-  final TextEditingController _tipController = TextEditingController();
+  final VoidCallback saveBIll;
+  final VoidCallback saveTip;
 
-  dynamic billValue = "";
-  dynamic tipValue = "";
-  double totalValue = 0.0;
+  const BillCalculator(
+      {super.key,
+      required this.billController,
+      required this.tipController,
+      required this.billValue,
+      required this.tipValue,
+      required this.totalValue,
+      required this.saveBIll,
+      required this.saveTip});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class _BillCalculatorState extends State<BillCalculator> {
           width: 80,
           height: 30,
           child: TextField(
-            controller: _billController,
+            controller: billController,
             cursorHeight: 15,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -65,15 +71,7 @@ class _BillCalculatorState extends State<BillCalculator> {
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
             onChanged: (value) {
-              setState(() {
-                billValue = _billController.text;
-                if (double.tryParse(billValue) != null &&
-                    double.tryParse(tipValue) != null) {
-                  billValue = double.parse(billValue);
-                  tipValue = double.parse(tipValue);
-                  calculateTotal();
-                }
-              });
+              saveBIll();
             },
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
@@ -93,7 +91,7 @@ class _BillCalculatorState extends State<BillCalculator> {
           width: 80,
           height: 30,
           child: TextField(
-            controller: _tipController,
+            controller: tipController,
             cursorHeight: 15,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -105,15 +103,7 @@ class _BillCalculatorState extends State<BillCalculator> {
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
             onChanged: (value) {
-              setState(() {
-                tipValue = _tipController.text;
-                if (double.tryParse(billValue) != null &&
-                    double.tryParse(tipValue) != null) {
-                  billValue = double.parse(billValue);
-                  tipValue = double.parse(tipValue);
-                  calculateTotal();
-                }
-              });
+              saveTip();
             },
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
@@ -141,13 +131,5 @@ class _BillCalculatorState extends State<BillCalculator> {
         )
       ],
     );
-  }
-
-  // Functions
-
-  void calculateTotal() {
-    totalValue = billValue + (billValue * (tipValue / 100));
-    billValue = _billController.text;
-    tipValue = _tipController.text;
   }
 }

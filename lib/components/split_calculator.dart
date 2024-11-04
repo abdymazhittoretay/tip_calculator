@@ -11,6 +11,8 @@ class SplitCalculator extends StatefulWidget {
 
 class _SplitCalculatorState extends State<SplitCalculator> {
   double _currentSliderValue = 0;
+  double splittedTip = 0.0;
+  double splittedBill = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,26 @@ class _SplitCalculatorState extends State<SplitCalculator> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Split: ${_currentSliderValue.round()}",
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Split:",
+              ),
+              SizedBox(
+                width: 80,
+                child: Text(
+                  "Value: ${_currentSliderValue.round()}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey
+                  ),
+                ),
+              )
+            ],
           ),
           SizedBox(
-            height: 12.0,
+            height: 24.0,
           ),
           Slider(
             thumbColor: Colors.blue,
@@ -43,6 +60,41 @@ class _SplitCalculatorState extends State<SplitCalculator> {
               });
             },
           ),
+          SizedBox(
+            height: 12,
+          ),
+          Divider(
+            height: 30,
+            color: Colors.grey,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Split Tip:"),
+              SizedBox(
+                  width: 80,
+                  child: Text(
+                    "\$$splittedTip",
+                    textAlign: TextAlign.center,
+                  ))
+            ],
+          ),
+          Divider(
+            height: 30,
+            color: Colors.grey,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Split Bill:"),
+              SizedBox(
+                  width: 80,
+                  child: Text(
+                    "\$$splittedBill",
+                    textAlign: TextAlign.center,
+                  ))
+            ],
+          )
         ],
       ),
     );
