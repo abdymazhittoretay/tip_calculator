@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 
-class SplitCalculator extends StatefulWidget {
-  const SplitCalculator({super.key});
+class SplitCalculator extends StatelessWidget {
+  final double currentSliderValue;
+  final double splittedTip;
+  final double splittedBill;
+  final void Function(double)? onChanged;
 
-  @override
-  State<SplitCalculator> createState() => _SplitCalculatorState();
-}
-
-class _SplitCalculatorState extends State<SplitCalculator> {
-  double _currentSliderValue = 0;
-  double splittedTip = 0.0;
-  double splittedBill = 0.0;
+  const SplitCalculator(
+      {super.key,
+      required this.currentSliderValue,
+      required this.splittedBill,
+      required this.splittedTip,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,9 @@ class _SplitCalculatorState extends State<SplitCalculator> {
               SizedBox(
                 width: 80,
                 child: Text(
-                  "Value: ${_currentSliderValue.round()}",
+                  "Value: ${currentSliderValue.round()}",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey
-                  ),
+                  style: TextStyle(color: Colors.grey),
                 ),
               )
             ],
@@ -50,15 +49,11 @@ class _SplitCalculatorState extends State<SplitCalculator> {
             thumbColor: Colors.blue,
             activeColor: Colors.blue,
             inactiveColor: Colors.grey[30],
-            label: _currentSliderValue.round().toString(),
+            label: currentSliderValue.round().toString(),
             max: 10,
             divisions: 10,
-            value: _currentSliderValue,
-            onChanged: (value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
+            value: currentSliderValue,
+            onChanged: onChanged,
           ),
           SizedBox(
             height: 12,

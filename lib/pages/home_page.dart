@@ -19,6 +19,10 @@ class _HomePageState extends State<HomePage> {
   dynamic tipValue = "";
   double totalValue = 0.0;
 
+  double _currentSliderValue = 0;
+  double splittedTip = 0.0;
+  double splittedBill = 0.0;
+
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
@@ -32,35 +36,42 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 32.0),
-            child: Text(
-              'BILL CALCULATOR',
-              style: TextStyle(color: Colors.grey),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 32.0),
+              child: Text(
+                'BILL CALCULATOR',
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
-          ),
-          BillCalculator(
-            billController: _billController,
-            tipController: _tipController,
-            billValue: billValue,
-            tipValue: tipValue,
-            totalValue: totalValue,
-            saveBIll: saveBIll,
-            saveTip: saveTip,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 32.0),
-            child: Text(
-              'SPLIT CALCULATOR',
-              style: TextStyle(color: Colors.grey),
+            BillCalculator(
+              billController: _billController,
+              tipController: _tipController,
+              billValue: billValue,
+              tipValue: tipValue,
+              totalValue: totalValue,
+              saveBIll: saveBIll,
+              saveTip: saveTip,
             ),
-          ),
-          SplitCalculator()
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 32.0),
+              child: Text(
+                'SPLIT CALCULATOR',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+            SplitCalculator(
+              currentSliderValue: _currentSliderValue,
+              splittedBill: splittedBill,
+              splittedTip: splittedTip,
+              onChanged: newValue,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -93,6 +104,12 @@ class _HomePageState extends State<HomePage> {
         tipValue = double.parse(tipValue);
         calculateTotal();
       }
+    });
+  }
+
+  void newValue(value) {
+    setState(() {
+      _currentSliderValue = value;
     });
   }
 }
