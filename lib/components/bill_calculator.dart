@@ -15,6 +15,7 @@ class _BillCalculatorState extends State<BillCalculator> {
 
   dynamic billValue = "";
   dynamic tipValue = "";
+  double totalValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +64,15 @@ class _BillCalculatorState extends State<BillCalculator> {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
-            onSubmitted: (value) {
+            onChanged: (value) {
               setState(() {
                 billValue = _billController.text;
+                if (double.tryParse(billValue) != null &&
+                    double.tryParse(tipValue) != null) {
+                  billValue = double.parse(billValue);
+                  tipValue = double.parse(tipValue);
+                  calculateTotal();
+                }
               });
             },
             onTapOutside: (event) {
@@ -97,9 +104,15 @@ class _BillCalculatorState extends State<BillCalculator> {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey))),
-            onSubmitted: (value) {
+            onChanged: (value) {
               setState(() {
                 tipValue = _tipController.text;
+                if (double.tryParse(billValue) != null &&
+                    double.tryParse(tipValue) != null) {
+                  billValue = double.parse(billValue);
+                  tipValue = double.parse(tipValue);
+                  calculateTotal();
+                }
               });
             },
             onTapOutside: (event) {
@@ -116,11 +129,25 @@ class _BillCalculatorState extends State<BillCalculator> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text('Total:'),
-        Text(
-          "$billValue $tipValue",
-          textAlign: TextAlign.center,
+        SizedBox(
+          width: 80,
+          child: Text(
+            double.tryParse(billValue) != null &&
+                    double.tryParse(tipValue) != null
+                ? "\$$totalValue"
+                : "\$0.0",
+            textAlign: TextAlign.center,
+          ),
         )
       ],
     );
+  }
+
+  // Functions
+
+  void calculateTotal() {
+    totalValue = billValue + (billValue * (tipValue / 100));
+    billValue = _billController.text;
+    tipValue = _tipController.text;
   }
 }
