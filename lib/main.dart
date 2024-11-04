@@ -15,13 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color.fromARGB(255, 243, 242, 248),
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.blue,
-          selectionColor: Colors.blue[100],
-          selectionHandleColor: Colors.blue,
-        ),
-      ),
+          primaryColor: Color.fromARGB(255, 243, 242, 248),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.blue,
+            selectionColor: Colors.blue[100],
+            selectionHandleColor: Colors.blue,
+          ),
+          sliderTheme: SliderThemeData(
+            overlayShape: SliderComponentShape
+                .noOverlay, // Remove any overlay shape if you want
+            trackShape: RectangularSliderTrackShape(),
+          )),
       home: HomePage(),
     );
   }
