@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tip_calculator/components/bill_calculator.dart';
+import 'package:tip_calculator/components/split_calculator.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -38,6 +39,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
           ),
+          SplitCalculator()
         ],
       ),
     );
