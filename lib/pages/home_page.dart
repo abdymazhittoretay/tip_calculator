@@ -110,18 +110,22 @@ class _HomePageState extends State<HomePage> {
   void newValue(value) {
     setState(() {
       _currentSliderValue = value;
-      splitTotal();
-      splitTip();
+      if (double.tryParse(_tipValue) != null &&
+          double.tryParse(_tipValue) != null) {
+        splitTotal();
+        splitTip();
+      }
     });
   }
 
   void splitTotal() {
-    _splittTotal =
-        (_totalValue / _currentSliderValue).toStringAsFixed(2);
+    _splittTotal = (_totalValue / _currentSliderValue).toStringAsFixed(2);
   }
 
   void splitTip() {
-    _splittedTip =
-        (double.parse(_tipValue) / _currentSliderValue).toStringAsFixed(2);
+    _splittedTip = (double.parse(_billValue) *
+            (double.parse(_tipValue) / 100) /
+            _currentSliderValue)
+        .toStringAsFixed(2);
   }
 }
