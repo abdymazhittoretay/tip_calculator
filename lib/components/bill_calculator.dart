@@ -7,7 +7,7 @@ class BillCalculator extends StatelessWidget {
   final TextEditingController tipController;
 
   final dynamic billValue;
-  final dynamic tipValue;
+  final dynamic tipPercent;
   final double totalValue;
 
   final VoidCallback saveBIll;
@@ -18,7 +18,7 @@ class BillCalculator extends StatelessWidget {
       required this.billController,
       required this.tipController,
       required this.billValue,
-      required this.tipValue,
+      required this.tipPercent,
       required this.totalValue,
       required this.saveBIll,
       required this.saveTip});
@@ -39,7 +39,7 @@ class BillCalculator extends StatelessWidget {
             height: 30,
             color: Colors.grey,
           ),
-          tipPercent(),
+          tipPercentWidget(),
           Divider(
             height: 30,
             color: Colors.grey,
@@ -82,7 +82,7 @@ class BillCalculator extends StatelessWidget {
     );
   }
 
-  Widget tipPercent() {
+  Widget tipPercentWidget() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -123,8 +123,27 @@ class BillCalculator extends StatelessWidget {
           width: 80,
           child: Text(
             double.tryParse(billValue) != null &&
-                    double.tryParse(tipValue) != null
+                    double.tryParse(tipPercent) != null
                 ? "\$${totalValue.toStringAsFixed(2)}"
+                : "\$0.0",
+            textAlign: TextAlign.center,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget tipTotal() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Tip Total:'),
+        SizedBox(
+          width: 80,
+          child: Text(
+            double.tryParse(billValue) != null &&
+                    double.tryParse(tipPercent) != null
+                ? "\$${tipPercent.toStringAsFixed(2)}"
                 : "\$0.0",
             textAlign: TextAlign.center,
           ),

@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _tipController = TextEditingController();
 
   dynamic _billValue = "";
-  dynamic _tipValue = "";
+  dynamic _tipPercent = "";
   double _totalValue = 0.0;
 
   double _currentSliderValue = 1.0;
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
               billController: _billController,
               tipController: _tipController,
               billValue: _billValue,
-              tipValue: _tipValue,
+              tipPercent: _tipPercent,
               totalValue: _totalValue,
               saveBIll: saveBIll,
               saveTip: saveTip,
@@ -78,40 +78,48 @@ class _HomePageState extends State<HomePage> {
 
   // Functions:
   void calculateTotal() {
-    _totalValue = _billValue + (_billValue * (_tipValue / 100));
+    _totalValue = _billValue + (_billValue * (_tipPercent / 100));
     _billValue = _billController.text;
-    _tipValue = _tipController.text;
+    _tipPercent = _tipController.text;
   }
 
   void saveBIll() {
     setState(() {
       _billValue = _billController.text;
       if (double.tryParse(_billValue) != null &&
-          double.tryParse(_tipValue) != null) {
+          double.tryParse(_tipPercent) != null) {
         _billValue = double.parse(_billValue);
-        _tipValue = double.parse(_tipValue);
+        _tipPercent = double.parse(_tipPercent);
         calculateTotal();
+        splitTotal();
+        splitTip();
       }
     });
   }
 
   void saveTip() {
     setState(() {
-      _tipValue = _tipController.text;
-      if (double.tryParse(_tipValue) != null &&
-          double.tryParse(_tipValue) != null) {
+      _tipPercent = _tipController.text;
+      if (double.tryParse(_tipPercent) != null &&
+          double.tryParse(_tipPercent) != null) {
         _billValue = double.parse(_billValue);
-        _tipValue = double.parse(_tipValue);
+        _tipPercent = double.parse(_tipPercent);
         calculateTotal();
+        splitTotal();
+        splitTip();
       }
     });
+  }
+
+  void calculateTip(){
+    
   }
 
   void newValue(value) {
     setState(() {
       _currentSliderValue = value;
-      if (double.tryParse(_tipValue) != null &&
-          double.tryParse(_tipValue) != null) {
+      if (double.tryParse(_tipPercent) != null &&
+          double.tryParse(_tipPercent) != null) {
         splitTotal();
         splitTip();
       }
@@ -124,7 +132,7 @@ class _HomePageState extends State<HomePage> {
 
   void splitTip() {
     _splittedTip = (double.parse(_billValue) *
-            (double.parse(_tipValue) / 100) /
+            (double.parse(_tipPercent) / 100) /
             _currentSliderValue)
         .toStringAsFixed(2);
   }
