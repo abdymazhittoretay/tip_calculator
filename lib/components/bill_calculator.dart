@@ -132,23 +132,4 @@ class BillCalculator extends StatelessWidget {
       ],
     );
   }
-
-  Widget tipTotal() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text('Tip Total:'),
-        SizedBox(
-          width: 80,
-          child: Text(
-            double.tryParse(billValue) != null &&
-                    double.tryParse(tipPercent) != null
-                ? "\$${tipPercent.toStringAsFixed(2)}"
-                : "\$0.0",
-            textAlign: TextAlign.center,
-          ),
-        )
-      ],
-    );
-  }
 }

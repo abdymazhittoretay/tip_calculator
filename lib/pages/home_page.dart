@@ -111,10 +111,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void calculateTip(){
-    
-  }
-
   void newValue(value) {
     setState(() {
       _currentSliderValue = value;
