@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   dynamic _billValue = "";
   dynamic _tipPercent = "";
   double _totalValue = 0.0;
+  double _tipValue = 0.0;
 
   double _currentSliderValue = 1.0;
   String _splittedTip = "0.0";
@@ -53,6 +54,7 @@ class _HomePageState extends State<HomePage> {
               tipController: _tipController,
               billValue: _billValue,
               tipPercent: _tipPercent,
+              tipValue: _tipValue,
               totalValue: _totalValue,
               saveBIll: saveBIll,
               saveTip: saveTip,
@@ -79,8 +81,10 @@ class _HomePageState extends State<HomePage> {
   // Functions:
   void calculateTotal() {
     _totalValue = _billValue + (_billValue * (_tipPercent / 100));
-    _billValue = _billController.text;
-    _tipPercent = _tipController.text;
+  }
+
+  void calculateTip() {
+    _tipValue = _billValue * (_tipPercent / 100);
   }
 
   void saveBIll() {
@@ -91,6 +95,9 @@ class _HomePageState extends State<HomePage> {
         _billValue = double.parse(_billValue);
         _tipPercent = double.parse(_tipPercent);
         calculateTotal();
+        calculateTip();
+        _billValue = _billController.text;
+        _tipPercent = _tipController.text;
         splitTotal();
         splitTip();
       }
@@ -105,6 +112,9 @@ class _HomePageState extends State<HomePage> {
         _billValue = double.parse(_billValue);
         _tipPercent = double.parse(_tipPercent);
         calculateTotal();
+        calculateTip();
+        _billValue = _billController.text;
+        _tipPercent = _tipController.text;
         splitTotal();
         splitTip();
       }

@@ -9,6 +9,7 @@ class BillCalculator extends StatelessWidget {
   final dynamic billValue;
   final dynamic tipPercent;
   final double totalValue;
+  final double tipValue;
 
   final VoidCallback saveBIll;
   final VoidCallback saveTip;
@@ -19,6 +20,7 @@ class BillCalculator extends StatelessWidget {
       required this.tipController,
       required this.billValue,
       required this.tipPercent,
+      required this.tipValue,
       required this.totalValue,
       required this.saveBIll,
       required this.saveTip});
@@ -44,6 +46,11 @@ class BillCalculator extends StatelessWidget {
             height: 30,
             color: Colors.grey,
           ),
+          tipTotal(),
+          Divider(
+            height: 30,
+            color: Colors.grey,
+          ),
           total()
         ],
       ),
@@ -54,7 +61,7 @@ class BillCalculator extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Bill Total:'),
+        Text('Bill Total \$:'),
         SizedBox(
           width: 80,
           height: 30,
@@ -108,6 +115,25 @@ class BillCalculator extends StatelessWidget {
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget tipTotal() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Tip Total:'),
+        SizedBox(
+          width: 80,
+          child: Text(
+            double.tryParse(billValue) != null &&
+                    double.tryParse(tipPercent) != null
+                ? "\$${tipValue.toStringAsFixed(2)}"
+                : "\$0.0",
+            textAlign: TextAlign.center,
           ),
         )
       ],
