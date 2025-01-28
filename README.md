@@ -1,4 +1,5 @@
 # tip_calculator
 
 
-![image](https://github.com/user-attachments/assets/da7bc264-3327-4375-88dc-850e32acd2c2)
+<img src="https://github.com/user-attachments/assets/da7bc264-3327-4375-88dc-850e32acd2c2" height="500">
+
